@@ -11,7 +11,7 @@ $novoUsuario=
 "nome" => $nome,
 "sobrenome" => $sobrenome,
 "email" => $email,
-"senha" => $senha,
+"senha" => password_hash($senha, PASSWORD_DEFAULT)
 ];
 
 //obtendo conteudo do arquivo usuarios json
@@ -30,17 +30,10 @@ $jsonUsuarios = json_encode($arrayUsuarios);
 //escrever o conteudo no arquivo
 $cadastrou = file_put_contents('./data/usuarios.json',$jsonUsuarios);
 
-if($cadastrou){
-    echo '<div class="alert alert-success">"Usuário Cadastrado com sucesso"</div>';
-    } else {
-        echo '<div class="alert alert-danger">"Usuário Cadastrado com sucesso"</div>';
-    }
-
 //var_dump($jsonUsuarios);die;
 
 //echo "$nome - $sobrenome - $email - $senha";
 //var_dump($_POST);die;
-
 }
 ?>
 <?php $tituloPagina = "Formulário de Cadastro"; ?> <?php require_once("./inc/head.php"); ?>
@@ -48,10 +41,11 @@ if($cadastrou){
     <article class="row">
         <section class="col-12 mx-auto bg-light my-5 py-5 rounded border" id="cadastroForm">
             <h3 class="col-12 text-center my-3"><?= $tituloPagina ?></h3>
-            <form action="" method="post">
+           
+                        <form action="" method="post">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="nome">Nome</label>
+                             <label for="nome">Nome</label>
                         <input type="text" class="form-control" id="nome" name="nome" required>
                     </div>
                     <div class="form-group col-md-6">
@@ -69,6 +63,12 @@ if($cadastrou){
                         <input type="password" class="form-control" id="senha" name="senha" required>
                     </div>
                 </div>
+                <?php if(isset($_POST) && $_POST){                   
+                       if(isset($cadastrou) && $cadastrou){
+    echo '<div class="alert alert-success">"Usuário Cadastrado com sucesso"</div>';
+    } else {
+        echo '<div class="alert alert-danger">"Usuário Cadastrado com sucesso"</div>';
+    }}?>
                 <div class="form-group">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="gridCheck">

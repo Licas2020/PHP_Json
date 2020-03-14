@@ -1,3 +1,23 @@
+<?php
+if(isset($_POST) && $_POST){
+    $email = $_POST ["email"];
+    $senha = $_POST["senha"];
+
+//obtendo conteudo do arquivo usuarios json
+$usuarios = file_get_contents('./data/usuarios.json');
+
+//transformado o conteudo do arquivo usuarios.json em um array
+$arrayUsuarios  = json_decode($usuarios,true);
+//$arrayUsuarios  = json_decode($usuarios); se deixar assim ele fica objeto
+
+foreach ($arrayUsuarios["usuarios"] as $usuario){ 
+    
+        echo "Email:".$usuario["email"]."<br>"; 
+        echo "Senha:".$usuario["senha"];
+    
+}
+
+}?>
 <?php $tituloPagina = "Formluário de Login"; ?>
 <?php require_once("./inc/head.php"); ?>
 <?php require_once("./inc/header.php"); ?>
@@ -5,7 +25,7 @@
     <article class="row">
         <section class="col-12 mx-auto bg-light my-5 py-5 rounded border" id="cadastroForm">
             <h3 class="col-12 text-center my-3"><?= $tituloPagina ?></h3>
-            <form action="usuarios.php" method="post">
+            <form action="login.php" method="post">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="email">email</label>
