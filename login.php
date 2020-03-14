@@ -12,12 +12,25 @@ $arrayUsuarios  = json_decode($usuarios,true);
 
 foreach ($arrayUsuarios["usuarios"] as $usuario){ 
     
-        echo "Email:".$usuario["email"]."<br>"; 
-        echo "Senha:".$usuario["senha"];
+       //echo "Email:".$usuario["email"]."<br>"; 
+       // echo "Senha:".$usuario["senha"]."<br>";
+        
+        //echo "<br>";
+
+        if($email == $usuario["email"]) {
+          if(password_verify($senha,$usuario["senha"])){
+            echo "usuário autenticado";
+            break;
+          }else{
+              echo "usuário não encontrado";
+          }
+        }
     
 }
+die;
 
-}?>
+}
+?>
 <?php $tituloPagina = "Formluário de Login"; ?>
 <?php require_once("./inc/head.php"); ?>
 <?php require_once("./inc/header.php"); ?>
